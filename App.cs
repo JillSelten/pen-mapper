@@ -24,8 +24,8 @@ using Microsoft.Win32;
 [assembly: AssemblyTitle("Pen Mapper")]
 [assembly: AssemblyProduct("Pen Mapper")]
 [assembly: AssemblyDescription("Pen Mapper")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
 
 namespace PenMapper
 {
@@ -33,7 +33,7 @@ namespace PenMapper
     static class Program
     {
         public const string AppName = "Pen Mapper";
-        public const string Version = "1.0";
+        public const string Version = "1.0.1";
         public const string ShowEventName = "PenMapper_Show_7F3A";
         public const string ExitEventName = "PenMapper_Exit_7F3A";
         public const string UninstallKey = @"Software\Microsoft\Windows\CurrentVersion\Uninstall\PenMapper";
@@ -117,7 +117,7 @@ namespace PenMapper
 
         public static void Init()
         {
-            string pref = Settings.Get("taal", "auto");
+            string pref = Settings.Get("taal", "en");
             if (pref == "nl") En = false;
             else if (pref == "en") En = true;
             else En = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != "nl"
@@ -1173,7 +1173,7 @@ namespace PenMapper
             string[] langIds = { "auto", "nl", "en" };
             var cmbLang = SettingCombo(card, 5, L.T("Taal", "Language"), L.T("Pen Mapper start opnieuw als je dit wijzigt.", "Pen Mapper restarts when you change this."),
                 new[] { L.T("Automatisch (Windows)", "Automatic (Windows)"), "Nederlands", "English" }, null, 0);
-            int li = Array.IndexOf(langIds, Settings.Get("taal", "auto"));
+            int li = Array.IndexOf(langIds, Settings.Get("taal", "en"));
             cmbLang.SelectedIndex = li < 0 ? 0 : li;
             cmbLang.SelectedIndexChanged += (s, e) =>
             {
