@@ -22,6 +22,7 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Pen Mapper",
+  "alternateName": ["PenMapper", "Pen-Mapper"],
   "description": "Free app to remap the side buttons of your Windows pen: single click, double click and hold. Works with HP MPP 2.0, Surface Pen, Dell, Lenovo and other Windows Ink pens. An alternative to HP Pen Control.",
   "url": "https://jillselten.github.io/pen-mapper/",
   "image": "https://jillselten.github.io/pen-mapper/buttons.png",
@@ -75,6 +76,7 @@
   .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px; }
   .pill b { color: var(--good); font-weight: 600; }
   h1 { font-size: clamp(38px, 5.2vw, 60px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 800; }
+  .h1-brand { display: block; font-size: 20px; font-weight: 700; letter-spacing: 0.02em; color: var(--accent); margin-bottom: 12px; }
   h1 span { background: linear-gradient(120deg, #a9b4ff, var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .lead { color: var(--muted); font-size: 19px; margin: 20px 0 32px; max-width: 34ch; }
   .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
@@ -175,7 +177,7 @@
   <div class="wrap">
     <div>
       <div class="pill"><b>●</b> <span class="nl">Gratis · Windows 10 en 11</span><span class="en">Free · Windows 10 and 11</span></div>
-      <h1><span class="nl">De knoppen van je pen, <span>naar wens.</span></span><span class="en">Your pen buttons, <span>your way.</span></span></h1>
+      <h1><small class="h1-brand">Pen Mapper</small><span class="nl">De knoppen van je pen, <span>naar wens.</span></span><span class="en">Your pen buttons, <span>your way.</span></span></h1>
       <p class="lead">
         <span class="nl">Geef elke zijknop van je Windows-pen drie eigen functies: één klik, dubbelklik en vasthouden.</span>
         <span class="en">Give every side button on your Windows pen three functions of its own: single click, double click and hold.</span>
