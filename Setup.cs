@@ -17,15 +17,15 @@ using Microsoft.Win32;
 [assembly: AssemblyTitle("Pen Mapper Setup")]
 [assembly: AssemblyProduct("Pen Mapper")]
 [assembly: AssemblyDescription("Pen Mapper Setup")]
-[assembly: AssemblyVersion("1.0.1.0")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
 
 namespace PenMapperSetup
 {
     static class Program
     {
         public const string AppName = "Pen Mapper";
-        public const string Version = "1.0.1";
+        public const string Version = "1.1";
         public static bool En = true;   // installatieprogramma standaard in het Engels
         public static string T(string nl, string en) { return En ? en : nl; }
 

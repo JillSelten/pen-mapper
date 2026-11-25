@@ -25,10 +25,13 @@ No administrator rights needed. Uninstall any time via *Windows Settings → App
 - **60+ actions** — mouse clicks, undo/redo, copy/paste, on-screen keyboard, snipping tool, zoom,
   tab and window switching, media keys, presentation controls, and more
 - **Custom actions** — record your own keyboard shortcut, type a piece of text, or open any program or website
+- **Radial menu** — hold a button and a round menu with 8 actions of your choice opens at your pen
 - **Quick menu** — a menu with every action, right at your pen
 - **Pen profiles** — pick your pen, or use **Learn** to teach Pen Mapper any button
 - **Works while hovering** — reads the pen directly, so buttons work without touching the screen
 - **Dutch and English**, dark modern design, runs quietly in the system tray, optional start with Windows
+
+![Radial menu](docs/radial.png)
 
 ![Settings](docs/settings.png)
 
@@ -70,7 +73,9 @@ powershell -ExecutionPolicy Bypass -File build.ps1 -CertPfx mycert.pfx -CertPass
 
 | File | What it is |
 | --- | --- |
-| `App.cs` | The app: UI, pen input (HID Raw Input), gestures, actions |
+| `PenMapper.cs` | The app window, pen buttons and gestures |
+| `Common.cs` | Shared parts: theme, settings, actions, pen input, controls |
+| `Radial.cs` | The radial menu |
 | `Setup.cs` | The installer |
 | `build.ps1` | Draws the icon, compiles both, optionally signs |
 

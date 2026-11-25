@@ -115,7 +115,7 @@ $refs = '/r:System.dll', '/r:System.Core.dll', '/r:System.Drawing.dll', '/r:Syst
 $exe = Join-Path $out 'Pen Mapper.exe'
 & $csc /nologo /target:winexe /platform:anycpu /optimize+ /codepage:65001 `
     "/out:$exe" "/win32icon:$ico" "/win32manifest:$manifest" "/resource:$ico,PenMapper.app.ico" `
-    $refs (Join-Path $here 'App.cs')
+    $refs (Get-ChildItem $here -Filter *.cs | Where-Object { $_.Name -ne 'Setup.cs' } | ForEach-Object { $_.FullName })
 if ($LASTEXITCODE -ne 0) { throw 'Compileren van de app mislukt' }
 Sign-File $exe
 
