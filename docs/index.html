@@ -57,8 +57,9 @@
   .btn.ghost { background: var(--card); border: 1px solid var(--line); }
   .btn.ghost:hover { background: var(--field); }
   .btn svg { width: 20px; height: 20px; }
-  .btn.coffee { background: #ffdd00; color: #141414; }
-  .btn.coffee:hover { background: #ffe53d; }
+  .bmc { display: inline-flex; border-radius: 12px; transition: transform .15s; }
+  .bmc:hover { transform: translateY(-1px); }
+  .bmc img { height: 52px; width: auto; border-radius: 12px; }
   [hidden] { display: none !important; }
   .meta { color: var(--muted); font-size: 13px; margin-top: 14px; }
   .shot { border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 30px 80px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.03); }
@@ -156,7 +157,7 @@
           <svg><use href="#i-dl"/></svg><span class="nl">Download voor Windows</span><span class="en">Download for Windows</span>
         </a>
         <a class="btn ghost" href="https://github.com/JillSelten/pen-mapper"><svg><use href="#i-gh"/></svg>GitHub</a>
-        <a class="btn coffee" data-coffee hidden target="_blank" rel="noopener">☕ <span class="nl">Koffie</span><span class="en">Coffee</span></a>
+        <a class="bmc" data-coffee hidden target="_blank" rel="noopener"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="217" height="60"></a>
       </div>
       <p class="meta"><span class="nl">Versie 1.0.1 · 175 KB · geen beheerdersrechten nodig</span><span class="en">Version 1.0.1 · 175 KB · no administrator rights needed</span></p>
     </div>
@@ -273,7 +274,7 @@
       <a class="btn primary" href="https://github.com/JillSelten/pen-mapper/releases/latest/download/Pen.Mapper.Setup.exe">
         <svg><use href="#i-dl"/></svg><span class="nl">Download Pen Mapper</span><span class="en">Download Pen Mapper</span>
       </a>
-      <a class="btn coffee" data-coffee hidden target="_blank" rel="noopener">☕ <span class="nl">Trakteer me op koffie</span><span class="en">Buy me a coffee</span></a>
+      <a class="bmc" data-coffee hidden target="_blank" rel="noopener"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="217" height="60"></a>
     </div>
     <p class="meta" data-coffee hidden><span class="nl">Pen Mapper is gratis. Vind je hem handig? Een koffie helpt om hem te blijven verbeteren.</span><span class="en">Pen Mapper is free. Find it useful? A coffee helps keep it improving.</span></p>
   </div>
