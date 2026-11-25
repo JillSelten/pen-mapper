@@ -3,6 +3,12 @@
 **Give the buttons on your Windows pen your own functions.**
 Single click, double click and hold — separately for each button.
 
+Free pen button remapper for Windows 10 and 11. Works with HP (MPP 2.0 Tilt Pen, Rechargeable Pen),
+Microsoft Surface Pen, Dell, Lenovo, Asus, Acer, Wacom AES and USI pens — and a replacement for the
+discontinued **HP Pen Control** app.
+
+🌐 **Website:** https://jillselten.github.io/pen-mapper/
+
 ![Pen Mapper](docs/buttons.png)
 
 ## Download
