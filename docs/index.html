@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pen Mapper — knoppen van je pen naar wens</title>
+<meta name="description" content="Geef de knoppen van je Windows-pen eigen functies: één klik, dubbelklik en vasthouden. Gratis voor Windows 10 en 11.">
+<meta property="og:title" content="Pen Mapper">
+<meta property="og:description" content="Give the buttons on your Windows pen your own functions.">
+<meta property="og:image" content="buttons.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2395A3FF'/%3E%3Cstop offset='1' stop-color='%235B6CF0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M42 14l8 8-22 22-10 2 2-10z' fill='none' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0f0f13; --bg2: #16161b; --card: #202028; --field: #2c2c37; --line: #2e2e39;
+    --text: #f2f2f5; --muted: #9a9aaa; --accent: #7c8cff; --accent2: #5b6cf0; --good: #3dd68c;
+    --radius: 16px; --max: 1120px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(15,15,19,.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; }
+  .logo { width: 32px; height: 32px; flex: none; }
+  .navlinks { display: flex; gap: 22px; margin-left: auto; }
+  .navlinks a { color: var(--muted); text-decoration: none; font-size: 15px; }
+  .navlinks a:hover { color: var(--text); }
+  .lang { display: flex; background: var(--card); border-radius: 999px; padding: 3px; }
+  .lang button { border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
+  .lang button.on { background: var(--field); color: var(--text); }
+
+  /* ---------- hero */
+  .hero { padding: 88px 0 72px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -200px -100px auto auto; width: 720px; height: 720px;
+    background: radial-gradient(circle, rgba(124,140,255,.22), transparent 62%); pointer-events: none;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center; position: relative; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px; }
+  .pill b { color: var(--good); font-weight: 600; }
+  h1 { font-size: clamp(38px, 5.2vw, 60px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 800; }
+  h1 span { background: linear-gradient(120deg, #a9b4ff, var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { color: var(--muted); font-size: 19px; margin: 20px 0 32px; max-width: 34ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 12px; font-weight: 600; text-decoration: none; font-size: 16px; transition: transform .15s, background .15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #fff; box-shadow: 0 10px 30px -10px rgba(124,140,255,.7); }
+  .btn.primary:hover { background: #94a1ff; }
+  .btn.ghost { background: var(--card); border: 1px solid var(--line); }
+  .btn.ghost:hover { background: var(--field); }
+  .btn svg { width: 20px; height: 20px; }
+  .meta { color: var(--muted); font-size: 13px; margin-top: 14px; }
+  .shot { border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 30px 80px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.03); }
+
+  /* ---------- sections */
+  section { padding: 80px 0; }
+  section.alt { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  h2 { font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -0.015em; line-height: 1.15; }
+  .sub { color: var(--muted); font-size: 17px; margin-top: 10px; max-width: 60ch; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .card h3 { font-size: 17px; margin: 14px 0 6px; }
+  .card p { color: var(--muted); font-size: 15px; }
+  .ico { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; background: rgba(124,140,255,.14); color: var(--accent); }
+  .ico svg { width: 22px; height: 22px; }
+
+  .steps { counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+  .step { position: relative; padding: 24px 24px 24px 72px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+  .step::before { counter-increment: s; content: counter(s); position: absolute; left: 22px; top: 22px; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; }
+  .step h3 { font-size: 17px; }
+  .step p { color: var(--muted); font-size: 15px; margin-top: 4px; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .pens { margin-top: 28px; display: grid; gap: 10px; }
+  .pen { display: flex; gap: 14px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .pen .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--good); margin-top: 8px; flex: none; }
+  .pen b { display: block; }
+  .pen span { color: var(--muted); font-size: 14px; }
+  .note { color: var(--muted); font-size: 14px; margin-top: 16px; }
+
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-top: 10px; }
+  summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--muted); font-size: 22px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--muted); margin-top: 10px; }
+  .faq { max-width: 780px; margin: 32px auto 0; }
+
+  .final { text-align: center; }
+  .final .cta { justify-content: center; margin-top: 28px; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+  footer a { color: var(--muted); }
+
+  /* taal: standaard NL, .en toont Engels */
+  [data-lang="en"] .nl, [data-lang="nl"] .en { display: none !important; }
+
+  @media (max-width: 900px) {
+    .hero .wrap, .split { grid-template-columns: 1fr; }
+    .grid, .steps { grid-template-columns: 1fr; }
+    .navlinks { display: none; }
+    .lang { margin-left: auto; }
+    .hero { padding-top: 56px; }
+  }
+</style>
+</head>
+<body data-lang="nl">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#95A3FF"/><stop offset="1" stop-color="#5B6CF0"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="url(#lg)"/><path d="M42 14l8 8-22 22-10 2 2-10z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></symbol>
+    <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gh" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#"><svg class="logo"><use href="#logo"/></svg>Pen Mapper</a>
+    <div class="navlinks">
+      <a href="#functies"><span class="nl">Functies</span><span class="en">Features</span></a>
+      <a href="#pennen"><span class="nl">Pennen</span><span class="en">Pens</span></a>
+      <a href="#vragen"><span class="nl">Vragen</span><span class="en">FAQ</span></a>
+      <a href="https://github.com/JillSelten/pen-mapper">GitHub</a>
+    </div>
+    <div class="lang" role="group" aria-label="Taal / Language">
+      <button data-set="nl">NL</button><button data-set="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="pill"><b>●</b> <span class="nl">Gratis · Windows 10 en 11</span><span class="en">Free · Windows 10 and 11</span></div>
+      <h1><span class="nl">De knoppen van je pen, <span>naar wens.</span></span><span class="en">Your pen buttons, <span>your way.</span></span></h1>
+      <p class="lead">
+        <span class="nl">Geef elke zijknop van je Windows-pen drie eigen functies: één klik, dubbelklik en vasthouden.</span>
+        <span class="en">Give every side button on your Windows pen three functions of its own: single click, double click and hold.</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/JillSelten/pen-mapper/releases/latest/download/Pen.Mapper.Setup.exe">
+          <svg><use href="#i-dl"/></svg><span class="nl">Download voor Windows</span><span class="en">Download for Windows</span>
+        </a>
+        <a class="btn ghost" href="https://github.com/JillSelten/pen-mapper"><svg><use href="#i-gh"/></svg>GitHub</a>
+      </div>
+      <p class="meta"><span class="nl">Versie 1.0 · 175 KB · geen beheerdersrechten nodig</span><span class="en">Version 1.0 · 175 KB · no administrator rights needed</span></p>
+    </div>
+    <div>
+      <img class="shot nl" src="knoppen-nl.png" alt="Pen Mapper: knoppen instellen" width="923" height="666">
+      <img class="shot en" src="buttons.png" alt="Pen Mapper: set up your buttons" width="923" height="666">
+    </div>
+  </div>
+</header>
+
+<section id="functies" class="alt">
+  <div class="wrap">
+    <h2><span class="nl">Alles wat je pen kan, en meer</span><span class="en">Everything your pen can do, and more</span></h2>
+    <p class="sub"><span class="nl">Pen Mapper leest je pen rechtstreeks uit, dus de knoppen werken al terwijl de pen boven het scherm zweeft.</span><span class="en">Pen Mapper reads your pen directly, so buttons work while the pen hovers over the screen.</span></p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/></svg></div>
+        <h3><span class="nl">Klik, dubbelklik, vasthouden</span><span class="en">Click, double click, hold</span></h3>
+        <p><span class="nl">Drie acties per knop. Met twee knoppen heb je zes snelkoppelingen binnen handbereik.</span><span class="en">Three actions per button. Two buttons give you six shortcuts at your fingertips.</span></p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h6"/></svg></div>
+        <h3><span class="nl">Meer dan 60 acties</span><span class="en">60+ actions</span></h3>
+        <p><span class="nl">Ongedaan maken, kopiëren, schermtoetsenbord, knipprogramma, zoomen, tabbladen, media, presentaties en meer.</span><span class="en">Undo, copy, on-screen keyboard, Snipping Tool, zoom, tabs, media, presentations and more.</span></p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h10M4 17h6"/><path d="M17 15l3 3-3 3"/></svg></div>
+        <h3><span class="nl">Helemaal eigen</span><span class="en">Fully custom</span></h3>
+        <p><span class="nl">Neem je eigen sneltoets op, laat tekst typen of open elk programma of elke website.</span><span class="en">Record your own shortcut, type a piece of text, or open any program or website.</span></p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg></div>
+        <h3><span class="nl">Snelmenu bij je pen</span><span class="en">Quick menu at your pen</span></h3>
+        <p><span class="nl">Eén knop opent een menu met álle acties, precies waar je pen is.</span><span class="en">One button opens a menu with every action, right where your pen is.</span></p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <h3><span class="nl">Leert elke pen</span><span class="en">Learns any pen</span></h3>
+        <p><span class="nl">Kies je pen in de lijst, of klik op ‘Leren’ en druk de knop in. Klaar.</span><span class="en">Pick your pen from the list, or click ‘Learn’ and press the button. Done.</span></p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3><span class="nl">Licht en stil</span><span class="en">Light and quiet</span></h3>
+        <p><span class="nl">Een donker modern design, draait onzichtbaar in het systeemvak en start op wens met Windows.</span><span class="en">Dark modern design, runs quietly in the system tray and can start with Windows.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="nl">In drie stappen klaar</span><span class="en">Ready in three steps</span></h2>
+    <div class="steps">
+      <div class="step"><h3><span class="nl">Download en installeer</span><span class="en">Download and install</span></h3><p><span class="nl">Eén klein bestand, geen beheerder nodig.</span><span class="en">One small file, no administrator needed.</span></p></div>
+      <div class="step"><h3><span class="nl">Kies je pen</span><span class="en">Pick your pen</span></h3><p><span class="nl">Of klik op ‘Leren’ en druk de knop in.</span><span class="en">Or click ‘Learn’ and press the button.</span></p></div>
+      <div class="step"><h3><span class="nl">Kies je acties</span><span class="en">Pick your actions</span></h3><p><span class="nl">Per knop: één klik, dubbelklik en vasthouden.</span><span class="en">Per button: single click, double click and hold.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pennen" class="alt">
+  <div class="wrap split">
+    <div>
+      <h2><span class="nl">Werkt met jouw pen</span><span class="en">Works with your pen</span></h2>
+      <p class="sub"><span class="nl">Pen Mapper werkt met Windows Ink-pennen op laptops en tablets met een aanraakscherm.</span><span class="en">Pen Mapper works with Windows Ink pens on touchscreen laptops and tablets.</span></p>
+      <div class="pens">
+        <div class="pen"><i class="dot"></i><div><b>MPP (Microsoft Pen Protocol)</b><span>HP MPP 2.0 Tilt Pen, HP Rechargeable Pen, Dell, Lenovo, Asus, Acer</span></div></div>
+        <div class="pen"><i class="dot"></i><div><b>Microsoft Surface</b><span>Surface Pen, Slim Pen</span></div></div>
+        <div class="pen"><i class="dot"></i><div><b>Wacom AES</b><span class="nl">Pennen voor Lenovo, Fujitsu, Samsung en meer</span><span class="en">Pens for Lenovo, Fujitsu, Samsung and more</span></div></div>
+        <div class="pen"><i class="dot"></i><div><b>USI</b><span class="nl">USI-pennen op Windows-apparaten</span><span class="en">USI pens on Windows devices</span></div></div>
+      </div>
+      <p class="note">
+        <span class="nl">Niet ondersteund: de Bluetooth-knop bovenop de Surface Pen, losse tekentablets met een eigen driver (zoals Wacom Intuos) en de Apple Pencil.</span>
+        <span class="en">Not supported: the Bluetooth top button of the Surface Pen, external drawing tablets with their own driver (such as Wacom Intuos) and Apple Pencil.</span>
+      </p>
+    </div>
+    <img class="shot" src="settings.png" alt="Pen Mapper settings" width="923" height="666" loading="lazy">
+  </div>
+</section>
+
+<section id="vragen">
+  <div class="wrap">
+    <h2 style="text-align:center"><span class="nl">Veelgestelde vragen</span><span class="en">Frequently asked questions</span></h2>
+    <div class="faq">
+      <details>
+        <summary><span class="nl">Windows zegt “onbekende uitgever”. Is het veilig?</span><span class="en">Windows says “unknown publisher”. Is it safe?</span></summary>
+        <p><span class="nl">Die melding komt omdat Pen Mapper nog niet digitaal ondertekend is. De volledige broncode staat openbaar op GitHub. Klik op <b>Meer informatie → Toch uitvoeren</b> om te installeren.</span><span class="en">You see this because Pen Mapper isn’t code-signed yet. The full source code is public on GitHub. Click <b>More info → Run anyway</b> to install.</span></p>
+      </details>
+      <details>
+        <summary><span class="nl">Een knop reageert niet. Wat nu?</span><span class="en">A button doesn’t respond. What now?</span></summary>
+        <p><span class="nl">Kies je pen rechtsboven op ‘Knoppen’, of klik bij de knop op <b>Leren</b> en druk hem in terwijl de pen boven het scherm zweeft. Op ‘Hulp en test’ zie je live welk signaal je pen stuurt.</span><span class="en">Pick your pen at the top right of ‘Buttons’, or click <b>Learn</b> and press the button while the pen hovers over the screen. ‘Help and test’ shows live which signal your pen sends.</span></p>
+      </details>
+      <details>
+        <summary><span class="nl">Heb ik beheerdersrechten nodig?</span><span class="en">Do I need administrator rights?</span></summary>
+        <p><span class="nl">Nee. Pen Mapper installeert alleen voor jouw gebruikersaccount.</span><span class="en">No. Pen Mapper installs just for your own user account.</span></p>
+      </details>
+      <details>
+        <summary><span class="nl">Hoe verwijder ik Pen Mapper?</span><span class="en">How do I uninstall Pen Mapper?</span></summary>
+        <p><span class="nl">Via <b>Instellingen → Apps → Geïnstalleerde apps → Pen Mapper → Verwijderen</b>. Alles wordt netjes opgeruimd.</span><span class="en">Go to <b>Settings → Apps → Installed apps → Pen Mapper → Uninstall</b>. Everything is cleaned up.</span></p>
+      </details>
+      <details>
+        <summary><span class="nl">Kost het iets?</span><span class="en">Does it cost anything?</span></summary>
+        <p><span class="nl">Nee, Pen Mapper is gratis.</span><span class="en">No, Pen Mapper is free.</span></p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="alt final">
+  <div class="wrap">
+    <h2><span class="nl">Haal meer uit je pen</span><span class="en">Get more out of your pen</span></h2>
+    <p class="sub" style="margin-left:auto;margin-right:auto"><span class="nl">Gratis voor Windows 10 en 11.</span><span class="en">Free for Windows 10 and 11.</span></p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/JillSelten/pen-mapper/releases/latest/download/Pen.Mapper.Setup.exe">
+        <svg><use href="#i-dl"/></svg><span class="nl">Download Pen Mapper</span><span class="en">Download Pen Mapper</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Pen Mapper</span>
+    <span><a href="https://github.com/JillSelten/pen-mapper">GitHub</a> · <a href="https://github.com/JillSelten/pen-mapper/releases"><span class="nl">Alle versies</span><span class="en">All releases</span></a></span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("nl") === 0 ? "nl" : "en");
+    function set(l) {
+      document.body.setAttribute("data-lang", l);
+      document.documentElement.lang = l;
+      document.querySelectorAll(".lang button").forEach(function (b) { b.classList.toggle("on", b.dataset.set === l); });
+      try { localStorage.setItem("lang", l); } catch (e) {}
+    }
+    document.querySelectorAll(".lang button").forEach(function (b) {
+      b.addEventListener("click", function () { set(b.dataset.set); });
+    });
+    set(lang);
+  })();
+</script>
+</body>
+</html>
